@@ -1,0 +1,19 @@
+name: run
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: dyalog/dyalog
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run scripts
+        run: cd src && ./run.sh
