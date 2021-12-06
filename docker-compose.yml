@@ -1,0 +1,10 @@
+version: '3'
+services:
+  apl:
+    image: dyalog/dyalog
+    ports:
+      - 4502:4502
+    environment:
+      - RIDE_INIT=http:*:4502
+    volumes:
+      - ./src:/app
