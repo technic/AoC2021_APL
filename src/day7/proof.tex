@@ -1,0 +1,80 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper,margin=3cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand{\abs}[1]{\lvert #1 \rvert}
+\newcommand{\dotss}{ \mathrel{{.}\,{.}} }
+
+\title{Day 7 proofs}
+\author{Alex Noname}
+
+\begin{document}
+
+\maketitle
+
+Consider input to be sorted array $a_i$ with $i=0 \dotss N-1$.
+
+\section*{Part 1}
+
+There are two cases:
+
+\textit{Case 1:} $N=2 n + 1$. The solution is $x=a_n$. 
+Any point $x'>x$ will require additional costs for all crabs in range $0 \dotss n$, 
+so additional fuel consumed is $\geq (x'-x) (n + 1)$.
+On the other hand only crabs in range $n + 1 \dotss N-1$ can benefit,
+so fuel saved is $\leq (x'-x) n$.
+Hence any point $x'>x$ will require more fuel.
+The proof for points $x'<x$ is analogical due to symmetry of the problem.
+
+\textit{Case 2:} $N=2n$. The solution is $x_1=a_{n-1}$ or $x_2=a_{n}$.
+Again consider point $x'>x_2$. This will require additional costs for crabs in range $0 \dotss n$,
+while only crabs in range $n+1 \dotss N-1$ can benefit.
+So any point $x'>x_2$ and similarly $x'<x_1$ will require more fuel.
+Moreover, when $x_1 \neq x_2$ all points $x_1 < x' < x_2$ will require same amount of fuel,
+because as we move $x'$ to the left $n$ crabs has to travel $x'-x_1$ units more, 
+while $n$ crabs to the right has to travel same amount of units less.
+
+\section*{Part 2}
+
+The function to minimize is
+\begin{equation}
+  f = \sum_i \abs{a_i - x} (\abs{a_i - x} + 1)
+\end{equation}
+Introduce average $\bar{a}=\frac{1}{N}\sum_i a_i$.
+The solution is $x=\floor{\bar a}$ or $x=\ceil{\bar a}$.
+Here we prove that all solutions with $x'>\bar{a}+1$ have more cost.
+Then by symmetry of the problem solutions with $x'<\bar{a}-1$ will also cost larger. Let $d=x'-\bar{a}$.
+First we rewrite
+\begin{align}
+  f & = \sum_{a_i < x} (x - a_i)(x - a_i + 1) + \sum_{a_i \geq x} (a_i - x)(a_i - x + 1) \\
+    & = \sum_i (x - a_i)^2 +  \sum_{a_i < x} (x - a_i) + \sum_{a_i \geq x} (a_i - x) \\
+    & = \sum_i [ (x - a_i)^2 +  (x - a_i) ] + 2\sum_{a_i \geq x} (a_i - x)
+\end{align}
+Then we compare two costs $\Delta f = f(\bar{a} + d) - f(\bar{a})$
+\begin{equation}
+  \Delta f = \sum_i d (2 (\bar{a} - a_i) +d) + Nd 
+  +2\sum_{a_i \geq \bar{a}+d } (a_i -\bar{a}-d)  -2\sum_{a_i\geq{\bar a}} (a_i -\bar{a}) 
+\end{equation}
+The last two sum partially overlap, so we can combine that part
+\begin{equation}
+  \Delta f = Nd^2 + Nd 
+  -2\sum_{a_i \geq \bar{a}+d }d  -2\sum_{\bar{a} + d > a_i \geq \bar{a}} (a_i -\bar{a})
+\end{equation}
+In the last sum we can take upper bound for $a_i-\bar{a} = d$ and join two sums:
+\begin{equation}
+  \Delta f > Nd^2 + Nd -2\sum_{a_i \geq \bar{a}} d
+\end{equation}
+The number of $a_i \geq \bar{a}$ is no more than $N$ and we get
+\begin{equation}
+  \Delta f > Nd^2 - Nd = N d (d - 1)
+\end{equation}
+Thus any point at the distance $d>1$ from $\bar{a}$ will have greater cost.
+
+\end{document}
