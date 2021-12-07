@@ -1,4 +1,4 @@
-lines ← ⊃⎕NGET'/app/day5/input.txt'1
+lines ← ⊃⎕NGET'day5/input.txt'1
 aa ← ↑¨ 1 + ⍎¨¨ {(' ' (≠⊆⊢) ⍵) [1 3]}¨ lines
 to ← {a←(¯1+⍵⌊⍺)+⍳1+|⍵-⍺⋄⍵>⍺:a⋄⌽a}
 draw ← {,¨/to⌿⍵}
