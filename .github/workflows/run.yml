@@ -18,8 +18,9 @@ jobs:
 
       - uses: actions/checkout@v2
       
-      - uses: docker://dyalog/dyalog:2.12
-      - with:
+      - name: check
+        uses: docker://dyalog/dyalog
+        with:
           args: ls
 
       - name: Run scripts
