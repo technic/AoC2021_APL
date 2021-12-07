@@ -1,4 +1,4 @@
-lines ← ⊃⎕NGET'day4/example.txt'1
+lines ← ⊃⎕NGET'day4/input.txt'1
 
 ns ← ⍎⊃lines
 boards ← ⍎¨¨ 1↓ ({0≠≢⍵}¨ lines) ⊆ lines
