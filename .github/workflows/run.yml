@@ -9,17 +9,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
+    container:
+      image: dyalog/dyalog
+      options: --user root
+    
     steps:
       - name: Info
         run: whoami
-
+      
+      - name: Install git
+        run: apt-get update && apt-get install -y git
+      
       - uses: actions/checkout@v2
       
-      - name: check
-        uses: docker://dyalog/dyalog
-        with:
-          args: ls
-
       - name: Run scripts
         run: cd src && ./run.sh
