@@ -8,3 +8,6 @@
 
 # Generated
 tmp.dyalog
+
+# Settings
+.vscode/settings.json
