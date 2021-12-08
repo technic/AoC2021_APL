@@ -8,5 +8,5 @@ mask ← ↑c∘∊¨
 +/({(1=+/⍵∘.=⍵)/⍵} +/ mask s) ∊⍨ ≢¨ ⊃,/ 1⊃¨a
 
 genid ← {m←⍵ ⋄ {⍵[⍋⍵]}¨{⍵/+⌿m}¨↓m}
-solve ← {n v ← ⍵ ⋄ p ← ⍸¨↓(genid mask n)∘.≡(genid mask s) ⋄ (⍳10)[p][⊃,/⍸¨↓ (mask v)∧.= ⍉ mask n]}
+solve ← {n v←⍵ ⋄ (⍳10)[⊃⍳/(genid mask)¨ s n][⊃⍳/mask¨ n v]}
 +/{+/(solve ⍵)×⌽10*⍳4}¨a
