@@ -7,6 +7,6 @@ s ← 'abcefg' 'cf' 'acdeg' 'acdfg' 'bcdf' 'abdfg' 'abdefg' 'acf' 'abcdefg' 'abc
 mask ← ↑c∘∊¨
 +/({(1=+/⍵∘.=⍵)/⍵} +/ mask s) ∊⍨ ≢¨ ⊃,/ 1⊃¨a
 
-genid ← {m←⍵ ⋄ {⍵[⍋⍵]}¨{⍵/+⌿m}¨↓m}
+genid ← {⍵[⍋⍵]}¨ {(/∘(+⌿⍵)¨↓⍵)}
 solve ← {n v←⍵ ⋄ (⍳10)[⊃⍳/(genid mask)¨ s n][⊃⍳/mask¨ n v]}
 +/{+/(solve ⍵)×⌽10*⍳4}¨a
